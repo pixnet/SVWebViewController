@@ -30,7 +30,7 @@
 
 - (void)dealloc {
     [self.webView stopLoading];
- 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     self.webView.delegate = nil;
 }
 
@@ -62,7 +62,7 @@
 }
 
 - (void)viewDidLoad {
-	[super viewDidLoad];
+    [super viewDidLoad];
     [self updateToolbarItems];
 }
 
@@ -79,8 +79,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     NSAssert(self.navigationController, @"SVWebViewController needs to be contained in a UINavigationController. If you are presenting SVWebViewController modally, use SVModalWebViewController instead.");
     
-	[super viewWillAppear:animated];
-	
+    [super viewWillAppear:animated];
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [self.navigationController setToolbarHidden:NO animated:animated];
     }
@@ -126,7 +126,7 @@
                                                               style:UIBarButtonItemStylePlain
                                                              target:self
                                                              action:@selector(goBackTapped:)];
-		_backBarButtonItem.width = 18.0f;
+        _backBarButtonItem.width = 18.0f;
     }
     return _backBarButtonItem;
 }
@@ -137,7 +137,7 @@
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(goForwardTapped:)];
-		_forwardBarButtonItem.width = 18.0f;
+        _forwardBarButtonItem.width = 18.0f;
     }
     return _forwardBarButtonItem;
 }
@@ -190,9 +190,10 @@
                           nil];
         
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, toolbarWidth, 44.0f)];
+        [toolbar setBarTintColor:[UIColor lightGrayColor]];
         toolbar.items = items;
         toolbar.barStyle = self.navigationController.navigationBar.barStyle;
-        toolbar.tintColor = self.navigationController.navigationBar.tintColor;
+        //        toolbar.tintColor = self.navigationController.navigationBar.tintColor;
         self.navigationItem.rightBarButtonItems = items.reverseObjectEnumerator.allObjects;
     }
     
@@ -210,7 +211,7 @@
                           nil];
         
         self.navigationController.toolbar.barStyle = self.navigationController.navigationBar.barStyle;
-        self.navigationController.toolbar.tintColor = self.navigationController.navigationBar.tintColor;
+        //        self.navigationController.toolbar.tintColor = self.navigationController.navigationBar.tintColor;
         self.toolbarItems = items;
     }
 }
@@ -218,13 +219,13 @@
 #pragma mark - UIWebViewDelegate
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self updateToolbarItems];
 }
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     if (self.navigationItem.title == nil) {
         self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
@@ -234,7 +235,7 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self updateToolbarItems];
 }
 
@@ -254,7 +255,7 @@
 
 - (void)stopTapped:(UIBarButtonItem *)sender {
     [self.webView stopLoading];
-	[self updateToolbarItems];
+    [self updateToolbarItems];
 }
 
 - (void)actionButtonTapped:(id)sender {
@@ -288,3 +289,4 @@
 }
 
 @end
+
